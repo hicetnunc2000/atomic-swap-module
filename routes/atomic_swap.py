@@ -39,7 +39,7 @@ class publish_swap(Resource):
                 'fa12' : payload['fa12'], 
                 'immutable': False, 
                 'tk_amount' : payload['tk_amount'], 
-                'tz_amount' : payload['tz_amount']})).autofill().sign().inject(_async=False, num_blocks_wait=2)
+                'tz_amount' : payload['tz_amount']})).fill().sign().inject(_async=False, num_blocks_wait=2)
 
         swapkt = OperationResult.originated_contracts(op)
         fa12 = pytz.contract(payload['fa12'])
@@ -76,7 +76,7 @@ class open_offers(Resource):
             payload = v.read_requests(request)
             pytz = v.read_session(session)
 
-            atomic_sample = "KT1SKLNmJnVu8QHLME7uLMCqhSVXUnzrri84"
+            atomic_sample = "KT1F67TPB9fa2LHo7Lipt21oztybXWT8D4W8"
 
             r_cartha = requests.get("https://api.better-call.dev/v1/contract/carthagenet/{}/same".format(atomic_sample))
             #r_main = requests.get("https://api.better-call.dev/v1/contract/mainnet/{}/same".format(atomic_sample))
@@ -87,13 +87,13 @@ class open_offers(Resource):
             #r_main = json.loads(r_main.content)['contracts']
 
             contracts = r_cartha
-            print(contracts.__len__())
+            #print(contracts.__len__())
             aux_arr = []
             for e in contracts:
                 aux_obj = {}
                 s = pytz.contract(e['address'])
                 aux_obj = s.storage()
-                print(aux_obj['immutable'])
+                #print(aux_obj['fa12'])
 
                 if aux_obj['fa12'] == payload['fa12'] and aux_obj['immutable'] == False:
                     aux_obj['kt_address'] = e['address']
