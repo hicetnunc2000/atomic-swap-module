@@ -1,0 +1,8 @@
+flask
+flask_restx
+feedparser
+conseil
+pytezos[crypto]
+werkzeug==0.16.1
+pyopenssl
+flask-cors
