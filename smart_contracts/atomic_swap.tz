@@ -31,7 +31,7 @@ code
             DUP;
             DUG 3;
             CADAR;
-            CONTRACT %transfer ( pair ( address %from ) ( pair ( address %to ) ( nat %value ) ) );
+            CONTRACT %transfer ( pair ( address %fro ) ( pair ( address %to ) ( nat %value ) ) );
             IF_SOME
               {
               }
@@ -52,7 +52,7 @@ code
             DIG 5;
             DROP;
             ADDRESS;
-            PAIR %from;
+            PAIR %fro;
             TRANSFER_TOKENS;
             CONS;
           }
@@ -178,7 +178,7 @@ code
                 DUP;
                 DUG 3;
                 CADAR;
-                CONTRACT %transfer ( pair ( address %from ) ( pair ( address %to ) ( nat %value ) ) );
+                CONTRACT %transfer ( pair ( address %fro ) ( pair ( address %to ) ( nat %value ) ) );
                 IF_SOME
                   {
                   }
@@ -199,9 +199,25 @@ code
                 DIG 5;
                 DROP;
                 ADDRESS;
-                PAIR %from;
+                PAIR %fro;
                 TRANSFER_TOKENS;
                 CONS;
+                SWAP;
+                DUP;
+                CDR;
+                SWAP;
+                CAR;
+                DUP;
+                CAR;
+                SWAP;
+                CDAR;
+                PUSH bool True;
+                SWAP;
+                PAIR;
+                SWAP;
+                PAIR;
+                PAIR;
+                SWAP;
               }
               {
                 SWAP;

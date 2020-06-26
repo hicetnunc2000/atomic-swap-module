@@ -25,6 +25,22 @@ class Validate():
         if (sess['auth'] == 'secret'):
             return self.read_secret(sess)
   
+    def read_faucet(self, sess):
+
+        faucet = sess['faucet']
+        #print(faucet)
+        path = './faucets/{}.json'.format(faucet['pkh'])
+            
+        with open(path, 'w') as outfile:
+            json.dump(faucet, outfile)
+            
+        k = Key.from_faucet(path)
+        p = pytezos.using(key = k, shell = sess['network'])
+        #os.remove(path)     
+
+        #print(k.public_key_hash())
+
+        return p
         
     def read_secret(self, sess):
         k = Key.from_encoded_key(sess['secret'], passphrase = sess['password'])
@@ -37,7 +53,7 @@ class Validate():
 
     def read_requests(self, request):
         if (request.data.__len__() == 0):
-            return request.args.__dict__()
+            return request.args.to_dict(flat=True)
         else:
             return json.loads(request.data)
 

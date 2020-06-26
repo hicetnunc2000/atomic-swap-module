@@ -20,7 +20,7 @@ v = Validate()
 api = Namespace('atomic_swap', description='publish and other entrypoints')
 
 @api.route('/publish')
-@api.doc({
+@api.doc(params={
     'fa12' : 'fa1.2 tokens kt address',
     'tk_amount' : 'tk amount',
     'tz_amount' : 'tz amount (mutez)'
@@ -50,7 +50,7 @@ class publish_swap(Resource):
 
 
 @api.route('/interest')
-@api.doc({
+@api.doc(params={
     'swap' : 'swap kt address',
     'tz_amount' : 'tz amount (mutez)'
 })
@@ -60,14 +60,14 @@ class interest(Resource):
             payload = v.read_requests(request)
             pytz = v.read_session(session)
 
-            swap = pytz.contract(payload['swap_contract'])
+            swap = pytz.contract(payload['swap'])
             r = swap.interest(int(payload['tz_amount'])).with_amount(int(payload['tz_amount'])).inject()
             return r
         except:
             return 500
 
 @api.route('/open_offers')
-@api.doc({
+@api.doc(params={
     'fa12' : 'fa12 kt address'
 })
 class open_offers(Resource):
@@ -104,8 +104,8 @@ class open_offers(Resource):
             return 500
 
 @api.route('/claim')
-@api.doc({
-    'swap' : 'fa12 kt address',
+@api.doc(params={
+    'swap' : 'atomic swap kt address',
     'to' : 'tz or kt destination'
 })
 class claim(Resource):
@@ -121,8 +121,8 @@ class claim(Resource):
 
 
 @api.route('/withdraw')
-@api.doc({
-    'swap' : 'swap kt address',
+@api.doc(params={
+    'swap' : 'atomic swap kt address',
     'to' : 'tz or kt destination',
     'amount' : 'mutez amount'
 })
@@ -138,8 +138,8 @@ class withdraw(Resource):
             return 500
 
 @api.route('/retrieve')
-@api.doc({
-    'swap' : 'swap kt address',
+@api.doc(params={
+    'swap' : 'atomic swap kt address',
     'to' : 'tz or kt destination'
 })
 class retrieve(Resource):
@@ -154,8 +154,8 @@ class retrieve(Resource):
             return 500
 
 @api.route('/delegate')
-@api.doc({
-    'swap' : 'swap kt address',
+@api.doc(params={
+    'swap' : 'atomic swap kt address',
     'to' : 'tz or kt destination'
 })
 class delegate(Resource):

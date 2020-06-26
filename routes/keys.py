@@ -20,6 +20,34 @@ pytezos = pytezos
 
 api = Namespace('keys', description='generate keys, activate, reveal')
 
+upload_parser = api.parser()
+upload_parser.add_argument('file', location='files',
+                       type=FileStorage, required=True)
+upload_parser.add_argument('network', choices=('mainnet', 'carthagenet'))                      
+# POST key configuration from faucet wallet
+
+@api.route('/faucet')
+@api.expect(upload_parser)
+class faucet(Resource):
+    
+    @api.expect(type)
+    def post(self):
+        try:
+            args = upload_parser.parse_args()
+
+            uploaded_faucet = json.loads(args['file'].read())
+
+            session['auth'] = 'faucet'
+            session['faucet'] = uploaded_faucet
+            session['network'] = args['network']
+
+            v = Validate() 
+            p = v.read_session(session)
+            
+            return p.key.public_key_hash()
+        except:
+            return 500
+
 @api.route('/post_secret')
 @api.doc(params = { 
     'secret' : 'wallet secret key', 

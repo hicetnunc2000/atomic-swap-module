@@ -1,3 +1,5 @@
+
+
 import smartpy as sp
 class FA12(sp.Contract):
     def __init__(self, admin):
@@ -102,6 +104,8 @@ class SWAP(sp.Contract):
         
         self.transfer(params)
         
+        self.data.immutable = True
+        
     @sp.entry_point
     def withdraw(self, params):
         sp.verify(sp.sender == self.data.admin)
@@ -165,4 +169,3 @@ def test():
 
     scenario.h3("Initial party withdraw funds")
     scenario += c2.withdraw(to=addr1.address, amount=200000000).run(sender=addr1)
-    
