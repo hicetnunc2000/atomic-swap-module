@@ -1,6 +1,6 @@
 # atomic-swap module
 
-Ungrund Oracle v1.0.0 enables you to make HTTP Requests for a microsservice which interacts with the Tezos Blockchain. It provides you multiple routes in which you can configure it's sessions, making possible user's interactions to happen with FA1.2 Standard Tokens and other Smart Contracts.
+Atomic Swap Module deploys and allows you to search for Atomic Swap Offerings related to FA1.2 tokens. Tezos and CoinList Hackaton.
 
 requirements
 ```
@@ -20,21 +20,15 @@ docker container rm --force atomic
 
 # routes
 
-access: https://localhost:5000/
+access: https://localhost:5001/
 you'll find routes documented
 
 # next updates
 
-- forge operations
-- FA2
-- modules fabric
-- cryptographed requests/responses
+- interoperability between different assets
+- FA2 atomic swaps
 
-# references
+# smart contracts
+https://better-call.dev/carthagenet/KT1HnvCK8CvUDEzhozQzR5oX5WACEj2D254m/operations
 
-https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-7/ManagedLedger.tz (FA1.2)
-https://medium.com/@hicetnunc2000/ungrund-oracle-34d1fe0659a3
 
-# donate
-eth: 0xa0290385540aB98222d00547cb59a9E72A788Bf3
-tz: tz1L6qEvhRFufA5KES6QJ48pvgvTrLcGUoLb
